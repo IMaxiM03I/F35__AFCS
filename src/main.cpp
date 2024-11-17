@@ -1,18 +1,17 @@
 #include <Arduino.h>
 
-// put function declarations here:
-int myFunction(int, int);
+#include <FlightControlSurface.h>
+
+Servo servo_test;
+FlightControlSurface fcs_test = FlightControlSurface(&servo_test);
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+  fcs_test.init(9);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-}
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  fcs_test.center();
+  delay(2000);
+  fcs_test.move(180);
+  delay(2000);
 }
