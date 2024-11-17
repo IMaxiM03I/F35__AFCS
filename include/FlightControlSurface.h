@@ -8,9 +8,9 @@ class FlightControlSurface {
     public:
         FlightControlSurface(Servo* servo);
 
-        void init(int pin);
+        void init(uint8_t pin);
 
-        void move(int angle);
+        void move(uint8_t angle);
 
         void center();
 };

@@ -4,12 +4,12 @@ FlightControlSurface::FlightControlSurface(Servo* servo) {
     this->servo = servo;
 }
 
-void FlightControlSurface::init(int pin) {
+void FlightControlSurface::init(uint8_t pin) {
     this->servo->attach(pin);
 }
 
-void FlightControlSurface::move(int angle) {
-    if (angle >= 0 && angle <= 180) servo->write(angle);
+void FlightControlSurface::move(uint8_t angle) {
+    if (angle <= 180) servo->write(angle);
     delay(15);
 }
 
