@@ -1,5 +1,8 @@
 #include <Arduino.h>
+
 #include <FlightControlSurface.h>
+#include <Flap.h>
+#include <Rudder.h>
 
 // servos
 Servo FLAP_LEFT_SERVO;
@@ -12,14 +15,18 @@ Servo ELEVATOR_LEFT_SERVO;
 Servo ELEVATOR_RIGHT_SERVO;
 
 // flight control surfaces
-FlightControlSurface flap_left = FlightControlSurface(&FLAP_LEFT_SERVO, 0);
-FlightControlSurface flap_right = FlightControlSurface(&FLAP_RIGHT_SERVO, 1);
+FlightControlSurface flap_left = Flap(&FLAP_LEFT_SERVO, 0);
+FlightControlSurface flap_right = Flap(&FLAP_RIGHT_SERVO, 1);
 
-FlightControlSurface rudder_left = FlightControlSurface(&RUDDER_LEFT_SERVO, 0);
-FlightControlSurface rudder_right = FlightControlSurface(&RUDDER_RIGHT_SERVO, 1);
+FlightControlSurface rudder_left = Rudder(&RUDDER_LEFT_SERVO, 0);
+FlightControlSurface rudder_right = Rudder(&RUDDER_RIGHT_SERVO, 1);
 
-FlightControlSurface elevator_left = FlightControlSurface(&ELEVATOR_LEFT_SERVO, 0);
-FlightControlSurface elevator_right = FlightControlSurface(&ELEVATOR_RIGHT_SERVO, 1);
+FlightControlSurface elevator_left = FlightControlSurface(&ELEVATOR_LEFT_SERVO);
+FlightControlSurface elevator_right = FlightControlSurface(&ELEVATOR_RIGHT_SERVO);
+
+// joystick values
+uint16_t jstick_x = 512;  // initialize to center value
+uint16_t jstick_y = 512;
 
 void setup() {
   // attach servos
@@ -34,8 +41,17 @@ void setup() {
 }
 
 void loop() {
-  rudder_right.center();
-  delay(2000);
-  rudder_right.move(180);
-  delay(500);
+  // map joystick values to [0-100] range (2 decimals precision)
+  map(jstick_x, 0, 1023, 0, 100);
+  map(jstick_y, 0, 1023, 0, 100);
+
+  // actuate roll
+  flap_left.move(jstick_x);
+  flap_right.move(jstick_x);
+
+  // actuate yaw
+
+  // actuate pitch
+  elevator_left.move(jstick_y);
+  elevator_right.move(jstick_y);
 }

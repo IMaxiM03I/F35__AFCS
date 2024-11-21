@@ -1,22 +1,24 @@
 #include <FlightControlSurface.h>
 
-FlightControlSurface::FlightControlSurface(Servo* servo, bool side) {
+FlightControlSurface::FlightControlSurface(Servo* servo) {
     this->servo = servo;
-
-    // servos on the right and left of the plane are facing opposite ways
-    this->ANGLE_MAX = 180 - side * 180;
-    this->ANGLE_MIN = side * 180;
 }
 
 void FlightControlSurface::init(uint8_t pin) {
     this->servo->attach(pin);
 }
 
-void FlightControlSurface::move(uint8_t angle) {
-    if (angle <= 180) servo->write(angle);
+void FlightControlSurface::move(uint8_t percentage) {
+    uint8_t angle = percentage;
+    map(angle, 0, 100, 0, 180);
+    moveServo(angle);
+}
+
+void FlightControlSurface::moveServo(uint8_t angle) {
+    servo->write(angle);
     delay(15);
 }
 
 void FlightControlSurface::center() {
-    move(90);
+    moveServo(90);
 }
