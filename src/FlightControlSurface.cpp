@@ -1,7 +1,11 @@
 #include <FlightControlSurface.h>
 
-FlightControlSurface::FlightControlSurface(Servo* servo) {
+FlightControlSurface::FlightControlSurface(Servo* servo, bool side) {
     this->servo = servo;
+
+    // servos on the right and left of the plane are facing opposite ways
+    this->ANGLE_MAX = 180 - side * 180;
+    this->ANGLE_MIN = side * 180;
 }
 
 void FlightControlSurface::init(uint8_t pin) {

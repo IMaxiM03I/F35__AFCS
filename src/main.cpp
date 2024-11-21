@@ -12,14 +12,14 @@ Servo ELEVATOR_LEFT_SERVO;
 Servo ELEVATOR_RIGHT_SERVO;
 
 // flight control surfaces
-FlightControlSurface flap_left = FlightControlSurface(&FLAP_LEFT_SERVO);
-FlightControlSurface flap_right = FlightControlSurface(&FLAP_RIGHT_SERVO);
+FlightControlSurface flap_left = FlightControlSurface(&FLAP_LEFT_SERVO, 0);
+FlightControlSurface flap_right = FlightControlSurface(&FLAP_RIGHT_SERVO, 1);
 
-FlightControlSurface rudder_left = FlightControlSurface(&RUDDER_LEFT_SERVO);
-FlightControlSurface rudder_right = FlightControlSurface(&RUDDER_RIGHT_SERVO);
+FlightControlSurface rudder_left = FlightControlSurface(&RUDDER_LEFT_SERVO, 0);
+FlightControlSurface rudder_right = FlightControlSurface(&RUDDER_RIGHT_SERVO, 1);
 
-FlightControlSurface elevator_left = FlightControlSurface(&ELEVATOR_LEFT_SERVO);
-FlightControlSurface elevator_right = FlightControlSurface(&ELEVATOR_RIGHT_SERVO);
+FlightControlSurface elevator_left = FlightControlSurface(&ELEVATOR_LEFT_SERVO, 0);
+FlightControlSurface elevator_right = FlightControlSurface(&ELEVATOR_RIGHT_SERVO, 1);
 
 void setup() {
   // attach servos
@@ -37,5 +37,5 @@ void loop() {
   rudder_right.center();
   delay(2000);
   rudder_right.move(180);
-  delay(2000);
+  delay(500);
 }
